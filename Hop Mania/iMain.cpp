@@ -11,8 +11,8 @@ int stage=0;
 int *pstage=&stage;
 int rx=450;
 int ry=50;
-int rdx=100;
-int rdy=50;
+int rdx=30;
+int rdy=30;
 int playx=150;
 int playy=384;
 int highx=150;
@@ -42,7 +42,14 @@ int dblocky=50;
 int blockx4=85;
 int blockx5=495;
 int blockx6=905;
-int blocky2=400;
+int blocky1=400;
+int down=10;
+int movetime=100;
+int *pmovetime=&movetime;
+int score=0;
+int *pscore=&score;
+int scoreplus=1;
+int *pscoreplus=&scoreplus;
 /*
 function iDraw() is called again and again by the system.
 
@@ -90,28 +97,29 @@ void page2()
     iSetColor(255,0,0);
     iRectangle(rx,ry,rdx,rdy);
 }
-void check()
+void screencheck()
 {
     if(rx<=0 || (rx+rdx)>=screenwidth || ry<=0)
     {
         exit(0);
     }
 }
-void UP()
+void SCREENUP()
 {
     if((ry+rdy)>=halfy)
     {
-        ry-=50;
-        blocky-=50;
-        blocky2-=50;
+        ry-=down;
+        blocky-=down;
+        blocky1-=down;
     }
     if(blocky<=10)
     {
         blocky=530;
     }
-    if(blocky2<=10)
+    if(blocky1<=10)
     {
-        blocky2=530;    }
+        blocky1=530;
+    }
 }
 void createRectangle1()
 {
@@ -131,17 +139,17 @@ void createRectangle3()
 void createRectangle4()
 {
     iSetColor(255,0,255);
-    iRectangle(blockx4,blocky2,dblockx,dblocky);
+    iRectangle(blockx4,blocky1,dblockx,dblocky);
 }
 void createRectangle5()
 {
     iSetColor(255,0,255);
-    iRectangle(blockx5,blocky2,dblockx,dblocky);
+    iRectangle(blockx5,blocky1,dblockx,dblocky);
 }
 void createRectangle6()
 {
     iSetColor(255,0,255);
-    iRectangle(blockx6,blocky2,dblockx,dblocky);
+    iRectangle(blockx6,blocky1,dblockx,dblocky);
 }
 void moveRectangle()
 {
@@ -162,7 +170,6 @@ void moveRectangle()
         {
             blockx3=1024;
         }
-
     }
 }
 void moveRectangle1()
@@ -203,10 +210,38 @@ void check1()
         if(rx<=blockx3+dblockx && rx>blockx3)
             exit(0);
     }
+    if(ry+rdy>=blocky1 && ry<=blocky1+dblocky)
+    {
+        if(!((rx+rdx>=blockx4 && rx+rdx<=blockx4+dblockx)||(rx+rdx>=blockx5 && rx+rdx<=blockx5+dblockx)||(rx+rdx>=blockx6 && rx+rdx<=blockx6+dblockx)))
+            exit(0);
+        if(!((rx<=blockx4+dblockx && rx>blockx4)||(rx<=blockx5+dblockx && rx>blockx5)||(rx<=blockx6+dblockx && rx>blockx6)))
+            exit(0);
+    }
 }
-void downscreen()
+void movechar()
 {
-
+    if(stage==2 && (ry+rdy>=blocky1 && ry<=blocky1+dblocky))
+    {
+        rx-=10;
+    }
+}
+void scorecheck()
+{
+    if(score>=300)
+    {
+        *pmovetime=70;
+        *pscoreplus=4;
+    }
+    else if(score>=200)
+    {
+        *pmovetime=80;
+        *pscoreplus=3;
+    }
+    else if(score>=10)
+    {
+       *pmovetime=10;
+       *pscoreplus=2;
+    }
 }
 void iDraw()
 {
@@ -235,6 +270,8 @@ void iDraw()
         createRectangle5();
         createRectangle6();
         check1();
+        scorecheck();
+        //printf("%d",score);
         //checkRectangle();
 
     }
@@ -324,24 +361,26 @@ void iSpecialKeyboard(unsigned char key)
 
         if(key==GLUT_KEY_UP)
         {
-            ry+=35;
-            check();
-            UP();
+            *pscore+=scoreplus;
+            ry+=10;
+            screencheck();
+            SCREENUP();
         }
         else if(key==GLUT_KEY_DOWN)
         {
-            ry-=35;
-            check();
+            *pscore-=scoreplus;
+            ry-=10;
+            screencheck();
         }
         else if(key==GLUT_KEY_LEFT)
         {
-            rx-=35;
-            check();
+            rx-=10;
+            screencheck();
         }
         else if(key==GLUT_KEY_RIGHT)
         {
-            rx+=35;
-            check();
+            rx+=10;
+            screencheck();
         }
     }
     //place your codes for other keys here
@@ -362,8 +401,9 @@ void moveText()
 int main()
 {
     iSetTimer(100,moveText);
-    iSetTimer(100,moveRectangle);
-    iSetTimer(100,moveRectangle1);
+    iSetTimer(*pmovetime,moveRectangle);
+    iSetTimer(*pmovetime,moveRectangle1);
+    iSetTimer(*pmovetime,movechar);
     //place your own initialization codes here.
     iInitialize(screenwidth, screenheigth, "Hop Mania");
     return 0;
