@@ -475,7 +475,10 @@ void iMouse(int button, int state, int mx, int my)
     {
         if((mx>=namex && mx<=(namex+namew)) && (my>=namey && my<=(namey+nameh)))
         {
-            *pstage=1;
+            if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+            {
+                *pstage=1;
+            }
         }
     }
     if(stage==1)
