@@ -112,27 +112,10 @@ void page0()
 }
 void page1()
 {
-    /*iSetColor(0,0,0);
-    iFilledRectangle(0,0,1024,576);*/
     iShowBMP(0,0,bg[1]);
-    //iSetColor(255,102,102);
-    //iFilledRectangle(playx,playy,widthplay,heigthplay);
     iShowBMP2(playx,playy,buttons[0],0);
-    //iSetColor(0, 0, 0);
-    //iText(190, 405, "  PLAY  ",GLUT_BITMAP_HELVETICA_18);
-
-    //iSetColor(255,102,102);
-    //iFilledRectangle(highx,highy,widthplay,heigthplay);
-    //iSetColor(0, 0, 0);
-    //iText(155, 305, "  HIGH SCORE  ",GLUT_BITMAP_HELVETICA_18);
     iShowBMP2(highx,highy,buttons[1],0);
-
-    //iSetColor(255,102,102);
-    //iFilledRectangle(endx,endy,widthend,heigthend);
-    //iSetColor(0, 0, 0);
-    //iText(870, 70, "  END  ",GLUT_BITMAP_HELVETICA_18);
     iShowBMP2(endx,endy,buttons[2],0);
-
     iSetColor(255,255,255);
     iText(welcomex,welcomey,"Welcome To Hop Mania",GLUT_BITMAP_HELVETICA_18);
 
@@ -548,7 +531,7 @@ void iDraw()
         scorecheck();
         screencheck();
     }
-    if(life==0)
+    if(life<=0)
     {
         page3();
     }
