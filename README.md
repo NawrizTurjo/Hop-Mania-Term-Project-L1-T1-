@@ -1,7 +1,7 @@
 # Term-Project-L1-T1-
 
 
-A Simple Jump to score game created using igraohics library
+A Simple Jump to score game created using igraphics library
 inspired by google hop mania game
 
 A project for L1-T1 BUET CSE '21
