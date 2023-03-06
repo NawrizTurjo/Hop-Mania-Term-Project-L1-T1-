@@ -481,29 +481,30 @@ void screencheck()
             }
             else if(stage==3)
             {
-                *pscore-=2;
+                *pscore-=1;
             }
             else if(stage==4)
             {
-                *pscore-=3;
+                *pscore-=1;
             }
             else if(stage==5)
             {
-                *pscore-=4;
+                *pscore-=1;
             }
             else if(stage==6)
             {
-                *pscore-=5;
+                *pscore-=1;
             }
             else if(stage==7)
             {
-                *pscore-=6;
+                *pscore-=1;
             }
             else if(stage==8)
             {
-                *pscore-=10;
+                *pscore-=1;
             }
         }
+        itoa(score,strscore,10);
     }
 }
 void SCREENUP()
@@ -1001,6 +1002,7 @@ void check1()
             iscrash=1;
         }
     }
+    itoa(score,strscore,10);
 }
 
 int pseudo_score=0;
