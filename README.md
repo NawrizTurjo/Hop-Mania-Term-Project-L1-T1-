@@ -8,7 +8,7 @@ A project for L1-T1 BUET CSE '21
 
 Project Creator: Nawriz Ahmed Turjo (2105032)
 
-Project Supervisor: Md. Hasibul Hasan Hisham, CSE, BUET.
+Project Supervisor: Md. Hasibul Husain Hisham, CSE, BUET.
 
 Demo: https://youtu.be/U4VeVaxa1_s
 
